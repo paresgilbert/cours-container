@@ -13,6 +13,8 @@ class OrderController
 {
     protected $texter;
     protected $mailer;
+    protected $secondaryMailer;
+
     protected $database;
 
     public function __construct(Database $database, MailerInterface $mailer, TexterInterface $texter)
@@ -21,7 +23,10 @@ class OrderController
         $this->mailer = $mailer;
         $this->texter = $texter;
     }
-
+    public function setSecondaryMailer(MailerInterface $mailer)
+    {
+        $this->secondaryMailer = $mailer;
+    }
     public function placeOrder()
     {
         $order = new Order($_POST['product'], (int) $_POST['quantity']);
@@ -45,5 +50,9 @@ class OrderController
     public function wakeup(string $message)
     {
         var_dump("OrderController S'EST REVEILLE : $message");
+    }
+    public function sayHello(string $message)
+    {
+        var_dump("Mello : $message");
     }
 }
